@@ -21,6 +21,14 @@
         ></span>
       </div>
       <div class="form-section-name">
+        App
+      </div>
+      <div class="config-form">
+        <button class="pure-button pure-button-primary test-msg-button" @click="addMyDeviceToken()">
+          {{ 'Add my device token' }}
+        </button>
+      </div>
+      <div class="form-section-name">
         Telegram
       </div>
       <div class="config-form">
@@ -152,6 +160,25 @@ export default {
       dataObj[serviceName] = serviceData
       const requestObj = Object.assign({}, dataObj)
       this.axios.post('/setpush', requestObj).then(() => {});
+    },
+    addMyDeviceToken: function() {
+      // eslint-disable-next-line
+      var messaging = cordova.plugins.firebase.messaging
+
+      messaging.requestPermission().then(function() {
+        console.log("Push messaging is allowed")
+        messaging.getToken().then(function(token) {
+          console.log("Got device token: "  + token)
+          let dataObj = {enabled: true, devices:[]}
+          let devObj = {name: 'MyTestDevice', token: token}
+          dataObj.devices[0] = devObj
+          const requestObj = Object.assign({}, { app: dataObj })
+          this.axios.post('/setpush', requestObj).then(() => {
+            EventBus.$emit("loading", false)
+            this.backToHome()
+          });
+        }.bind(this));
+      }.bind(this));    
     }
   },
   components: {},
