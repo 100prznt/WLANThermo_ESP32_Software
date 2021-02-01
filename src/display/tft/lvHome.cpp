@@ -180,8 +180,8 @@ void lvHome_Create(void)
     lv_label_set_text_fmt(tile->labelNumber, "#%d", i + 1u);
     lv_obj_set_style_local_text_font(tile->labelNumber, LV_CONT_PART_MAIN, LV_STATE_DEFAULT, &Font_Gothic_A1_Medium_h16);
     lv_obj_set_style_local_text_color(tile->labelNumber, LV_CONT_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_WHITE);
-    lv_obj_set_size(tile->labelNumber, 28, 21);
-    lv_obj_set_pos(tile->labelNumber, 124, 0);
+    lv_obj_set_size(tile->labelNumber, 32, 21);
+    lv_obj_set_pos(tile->labelNumber, 120, 0);
 
     tile->labelSymbolMax = lv_label_create(tile->objTile, NULL);
     lv_label_set_text(tile->labelSymbolMax, "F");
